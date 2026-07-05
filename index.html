@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aarambh — Focus Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arizonia&family=Bitcount+Prop+Single:wght@100..900&family=Elms+Sans:ital,wght@0,100..900;1,100..900&family=Lugrasimo&family=Michroma&family=Norican&family=Qwitcher+Grypen:wght@400;700&display=swap" rel="stylesheet">
+<link
+  href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+  rel="stylesheet"
+/>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ===== TOP NAV (sidebar removed) ===== -->
+  <header class="topnav">
+    <div class="brand">
+      <span class="brand-mark"><i class="ri-dashboard-horizontal-line"></i></span>
+      <span class="brand-name">Task-Verse</span>
+    </div>
+    <nav class="nav">
+      <a class="nav-link active" data-target="overview">Overview</a>
+      <a class="nav-link" data-target="planner">Planner</a>
+      <a class="nav-link" data-target="tasks">Todo</a>
+      <a class="nav-link" data-target="focus">Pomodoro</a>
+      <a class="nav-link" data-target="goals">Goals</a>
+    </nav>
+    <div id="theme"><i class="ri-sun-fill"></i></div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main">
+
+    <header class="topline" id="overview">
+      <div class="greet">
+        <p class="eyebrow">Today</p>
+        <h1 id="greeting">Good morning, let's start the day</h1>
+      </div>
+      <div class="clock-card">
+        <span class="clock-time" id="clockTime">09:41:23</span>
+        <span class="clock-date" id="clockDate">Monday, July 6</span>
+      </div>
+    </header>
+
+    <!-- Motivation strip -->
+    <section class="quote-strip">
+      <span class="quote-mark">“</span>
+      <p class="quote-text" id="quoteText">Discipline is choosing between what you want now and what you want most.</p>
+      <button class="quote-refresh" id="quoteRefresh" title="New quote">↻</button>
+    </section>
+
+    <!-- Bento grid -->
+    <section class="grid">
+
+      <!-- Pomodoro Timer -->
+      <article class="card card-focus" id="focus">
+        <div class="card-head">
+          <h2>Pomodoro Timer</h2>
+          <span class="tag" id="focusMode">Focus</span>
+        </div>
+
+        <div class="timer-wrap">
+          <svg class="timer-ring" viewBox="0 0 220 220">
+            <circle class="ring-track" cx="110" cy="110" r="98"></circle>
+            <circle class="ring-progress" id="ringProgress" cx="110" cy="110" r="98"></circle>
+          </svg>
+          <div class="timer-center">
+            <span class="timer-time" id="timerDisplay">17:32</span>
+            <span class="timer-sub" id="timerSessions">Session 2</span>
+          </div>
+        </div>
+
+        <div class="timer-controls">
+          <button class="btn btn-ghost" id="timerReset">↺ Reset</button>
+          <button class="btn btn-primary" id="timerToggle">▶ Start</button>
+          <button class="btn btn-ghost" id="timerSkip">Skip ⏭</button>
+        </div>
+
+        <div class="mode-switch">
+          <button class="mode-btn active" data-mins="25" data-mode="Focus">25 min</button>
+          <button class="mode-btn" data-mins="5" data-mode="Short Break">5 min</button>
+          <button class="mode-btn" data-mins="15" data-mode="Long Break">15 min</button>
+        </div>
+      </article>
+
+      <!-- Todo List -->
+      <article class="card card-tasks" id="tasks">
+        <div class="card-head">
+          <h2>Todo List</h2>
+          <span class="tag" id="taskCount">3 left</span>
+        </div>
+        <form class="task-form" id="taskForm">
+          <input type="text" id="taskInput" placeholder="Add a new task and press Enter..." autocomplete="off">
+          <button type="submit" class="btn btn-primary btn-icon">ADD</button>
+        </form>
+        <ul class="task-list" id="taskList">
+          <li class="task-item done">
+            <span class="task-check">✓</span>
+            <span class="task-label">Review today's priorities</span>
+            <span class="task-del">✕</span>
+          </li>
+          <li class="task-item">
+            <span class="task-check"></span>
+            <span class="task-label">Deep work block — 2 hours</span>
+            <span class="task-del">✕</span>
+          </li>
+          <li class="task-item">
+            <span class="task-check"></span>
+            <span class="task-label">Reply to pending emails</span>
+            <span class="task-del">✕</span>
+          </li>
+          <li class="task-item">
+            <span class="task-check"></span>
+            <span class="task-label">Prepare slides for review</span>
+            <span class="task-del">✕</span>
+          </li>
+            </li>
+          <li class="task-item">
+            <span class="task-check"></span>
+            <span class="task-label">Prepare slides for review</span>
+            <span class="task-del">✕</span>
+          </li>
+            </li>
+          <li class="task-item">
+            <span class="task-check"></span>
+            <span class="task-label">Prepare slides for review</span>
+            <span class="task-del">✕</span>
+          </li>
+            </li>
+          <li class="task-item">
+            <span class="task-check"></span>
+            <span class="task-label">Prepare slides for review</span>
+            <span class="task-del">✕</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Daily Planner -->
+      <article class="card card-planner" id="planner">
+        <div class="card-head">
+          <h2>Daily Planner</h2>
+          <span class="tag">Today</span>
+        </div>
+        <form class="planner-form" id="plannerForm">
+          <input type="time" id="plannerTimeInput" class="planner-time-input">
+          <input type="text" id="plannerTaskInput" placeholder="Add a plan for this time...">
+          <button type="submit" class="btn btn-primary btn-icon">ADD</button>
+        </form>
+        <div class="planner-list" id="plannerList">
+          <div class="planner-row">
+            <div class="planner-time">07:00</div>
+            <div class="planner-task">Wake up & morning routine</div>
+          </div>
+          <div class="planner-row">
+            <div class="planner-time">08:30</div>
+            <div class="planner-task">Breakfast & plan the day</div>
+          </div>
+          <div class="planner-row current">
+            <div class="planner-time">09:30</div>
+            <div class="planner-task">Deep work session</div>
+          </div>
+          <div class="planner-row">
+            <div class="planner-time">12:30</div>
+            <div class="planner-task">Lunch break</div>
+          </div>
+          <div class="planner-row">
+            <div class="planner-time">14:00</div>
+            <div class="planner-task">Meetings / collaboration</div>
+          </div>
+          <div class="planner-row">
+            <div class="planner-time">17:00</div>
+            <div class="planner-task">Exercise</div>
+          </div>
+          <div class="planner-row">
+            <div class="planner-time">19:00</div>
+            <div class="planner-task">Dinner</div>
+          </div>
+          <div class="planner-row">
+            <div class="planner-time">21:00</div>
+            <div class="planner-task">Wind down & read</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Weather Widget -->
+      <article class="card card-weather">
+        <div class="card-head">
+          <h2>Weather</h2>
+          <span class="tag" id="weatherPlace">Delhi</span>
+        </div>
+        <div class="weather-body">
+          <div class="weather-icon" id="weatherIcon">☀️</div>
+          <div class="weather-temp"><span id="weatherTempVal">32</span>°C</div>
+          <div class="weather-desc" id="weatherDesc">Clear sky</div>
+        </div>
+        <div class="weather-meta">
+          <div><span>Feels</span><strong id="weatherFeels">34°</strong></div>
+          <div><span>Humidity</span><strong id="weatherHumidity">48%</strong></div>
+          <div><span>Wind</span><strong id="weatherWind">11 km/h</strong></div>
+        </div>
+      </article>
+
+      <!-- Daily Goals -->
+      <article class="card card-goals" id="goals">
+        <div class="card-head">
+          <h2>Daily Goals</h2>
+          <span class="tag" id="goalsProgressTag">50%</span>
+        </div>
+        <div class="goals-ring-row">
+          <svg class="goal-ring" viewBox="0 0 90 90">
+            <circle class="goal-track" cx="45" cy="45" r="38"></circle>
+            <circle class="goal-progress" id="goalRingProgress" cx="45" cy="45" r="38"></circle>
+          </svg>
+          <div class="goal-total" id="goalTotalText">2 / 4 done</div>
+        </div>
+        <ul class="goal-list" id="goalList">
+          <li class="goal-chip done">
+            <span class="task-check">✓</span>
+            <span class="glabel">Drink 8 glasses of water</span>
+          </li>
+          <li class="goal-chip done">
+            <span class="task-check">✓</span>
+            <span class="glabel">30 min workout</span>
+          </li>
+          <li class="goal-chip">
+            <span class="task-check"></span>
+            <span class="glabel">Read 10 pages</span>
+          </li>
+          <li class="goal-chip">
+            <span class="task-check"></span>
+            <span class="glabel">No phone after 10pm</span>
+          </li>
+        </ul>
+        <form class="goal-form" id="goalForm">
+          <input type="text" id="goalInput" placeholder="Add a new daily goal...">
+          <button type="submit" class="btn btn-primary btn-icon">ADD</button>
+        </form>
+      </article>
+
+    </section>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
