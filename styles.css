@@ -257,10 +257,19 @@ h1,h2,.brand-name,.timer-time,.weather-temp,.clock-time{ font-family:'Space Grot
   stroke: var(--gold);
   stroke-width:11;
   stroke-linecap:round;
-stroke-dasharray: 762.75;
-  stroke-dashoffset:150;
+  stroke-dasharray: 615.75;
+  stroke-dashoffset: 0;
   transition: stroke-dashoffset 1s linear;
   filter: drop-shadow(0 0 8px rgba(224,164,88,0.45));
+}
+
+.ring-marker{
+  fill: var(--gold);
+  stroke: var(--surface);
+  stroke-width: 4;
+  transform-origin: 110px 110px;
+  transition: transform 1s linear;
+  filter: drop-shadow(0 0 10px rgba(224,164,88,0.55));
 }
 
 .timer-center{
@@ -372,13 +381,47 @@ stroke-dasharray: 762.75;
 
 .planner-time{ font-size:12px; color:#b9721a; font-weight:600; }
 .planner-task{ font-size:13.5px; color: var(--muted); }
+.planner-task{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.planner-del{
+  background:none;
+  color: var(--muted-soft);
+  font-size:14px;
+  flex-shrink:0;
+}
+
+.planner-del:hover{
+  color: var(--rose);
+}
 
 .planner-row.current{
-  background-color: var(--sage-tint);
+  background-color: rgba(110,155,125,0.2);
+  border: 1px solid rgba(110,155,125,0.28);
+  box-shadow: inset 4px 0 0 var(--sage);
   border-radius:8px; padding-left:8px; padding-right:8px;
 }
 .planner-row.current .planner-task{ color:inherit; font-weight:600; }
-.planner-row.current .planner-time{ color: var(--sage); }
+.planner-row.current .planner-time{ color: var(--sage); font-size: 13px; }
+
+.planner-row.passed{
+  background-color: rgba(110,155,125,0.12);
+  border-radius:8px;
+  padding-left:8px;
+  padding-right:8px;
+}
+
+.planner-row.passed .planner-time{
+  color: var(--sage);
+}
+
+.planner-row.passed .planner-task{
+  color: var(--ink);
+}
 
 /* ---------- Weather ---------- */
 
