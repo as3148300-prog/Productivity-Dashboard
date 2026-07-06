@@ -18,7 +18,12 @@
 <body>
 
 <div class="app">
-
+   <div class="waring">
+    <h2 id="warning1">Please Enter A Task !</h2>
+     <h4 id="warning2">
+        Task cannot be empty....
+     </h4>
+   </div>
   <!-- ===== TOP NAV (sidebar removed) ===== -->
   <header class="topnav">
     <div class="brand">
@@ -94,51 +99,15 @@
       <article class="card card-tasks" id="tasks">
         <div class="card-head">
           <h2>Todo List</h2>
-          <span class="tag" id="taskCount">3 left</span>
+          <span class="tag" id="taskCount"><span id="taskcounter">0</span> left</span>
         </div>
         <form class="task-form" id="taskForm">
           <input type="text" id="taskInput" placeholder="Add a new task and press Enter..." autocomplete="off">
-          <button type="submit" class="btn btn-primary btn-icon">ADD</button>
+          <button type="submit" id="todotaskadd" class="btn btn-primary btn-icon">ADD</button>
         </form>
         <ul class="task-list" id="taskList">
-          <li class="task-item done">
-            <span class="task-check">✓</span>
-            <span class="task-label">Review today's priorities</span>
-            <span class="task-del">✕</span>
-          </li>
-          <li class="task-item">
-            <span class="task-check"></span>
-            <span class="task-label">Deep work block — 2 hours</span>
-            <span class="task-del">✕</span>
-          </li>
-          <li class="task-item">
-            <span class="task-check"></span>
-            <span class="task-label">Reply to pending emails</span>
-            <span class="task-del">✕</span>
-          </li>
-          <li class="task-item">
-            <span class="task-check"></span>
-            <span class="task-label">Prepare slides for review</span>
-            <span class="task-del">✕</span>
-          </li>
-            </li>
-          <li class="task-item">
-            <span class="task-check"></span>
-            <span class="task-label">Prepare slides for review</span>
-            <span class="task-del">✕</span>
-          </li>
-            </li>
-          <li class="task-item">
-            <span class="task-check"></span>
-            <span class="task-label">Prepare slides for review</span>
-            <span class="task-del">✕</span>
-          </li>
-            </li>
-          <li class="task-item">
-            <span class="task-check"></span>
-            <span class="task-label">Prepare slides for review</span>
-            <span class="task-del">✕</span>
-          </li>
+          
+         
         </ul>
       </article>
 

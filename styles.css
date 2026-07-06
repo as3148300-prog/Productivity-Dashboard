@@ -41,6 +41,7 @@ body,
   --sage:#6E9B7D;
   --sage-tint:rgba(110,155,125,0.14);
   --shadow:0 14px 32px -22px rgba(120,95,45,0.35);
+  --warning:red;
 }
 
 :root[data-theme="dark"]{
@@ -331,7 +332,8 @@ h1,h2,.brand-name,.timer-time,.weather-temp,.clock-time{ font-family:'Space Grot
 .task-label{ flex:1; font-size:13.5px; }
 .task-item.done .task-label{ text-decoration:line-through; color: var(--muted-soft); }
 
-.task-del{ color: var(--muted-soft); font-size:14px; opacity:.8; }
+.task-del{ color: var(--muted-soft); font-size:14px; opacity:.8; 
+cursor: pointer;}
 .task-del:hover{ color: var(--rose); opacity:1; }
 
 .task-empty{ font-size:13px; color: var(--muted-soft); text-align:center; padding:14px 0; }
@@ -479,3 +481,31 @@ h1,h2,.brand-name,.timer-time,.weather-temp,.clock-time{ font-family:'Space Grot
   font-size: 30px;
 }
 
+.waring{
+  padding: 1%;
+ width: 250px;
+ height: 100px;
+ right: 1%;
+ border-radius: 20px;
+ background:var(--gold);
+   margin-top: 2vw;
+  z-index: 34;
+  position: fixed;
+  transform: translateY(-150%);
+ transition: cubic-bezier(0.19, 1, 0.22, 1)3s;
+}
+.waring h2{
+  font-size: 20px;
+color: var(--warning);
+font-weight: 200;
+}
+.waring h4{
+  margin-top: 10px;
+  font-size: 15px;
+color: var(--warning);
+font-weight: 500;
+}
+.ri-check-line{
+  color: green;
+  font-size: 15px;
+}
