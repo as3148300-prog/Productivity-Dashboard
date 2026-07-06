@@ -219,30 +219,49 @@ function addDeleteEvents() {
             elem.parentElement.remove();
             task--
             taskcounter.textContent = task
+ document.querySelector("#warning1").innerHTML = "Task Deleted"
+        document.querySelector("#warning2").innerHTML = "ThankYou!"
+        document.querySelector("#warning1").style.color = "green"
+        document.querySelector("#warning2").style.color = "green"
+
+        document.querySelector(".waring").style.transform = "translateY(0%)"
+        setTimeout(function () {
+            document.querySelector(".waring").style.transform = "translateY(-150%)"
+        }, 2000)
+
         };
     });
 }
 
- function check(){
-  let  checktoggle =  false
-     let checbox = document.querySelectorAll(".task-check")
- checbox.forEach((val)=>{
- val.addEventListener("click",function(){
-    if(checktoggle  ===  false){
-         val.innerHTML =     `<i class="ri-check-line"></i>`
-         checktoggle = true
-          task--
-            taskcounter.textContent = task
-    }else{
-        val.innerHTML = ""
-         checktoggle = false
-task++
-            taskcounter.textContent = task
+function check() {
+  let checbox = document.querySelectorAll(".task-check");
 
-    }
- })
- })
- }
+  checbox.forEach((val) => {
+
+    val.onclick = function () {
+
+      let label = val.parentElement.querySelector(".task-label");
+
+      if (val.innerHTML.trim() === "") {
+        val.innerHTML = `<i class="ri-check-line"></i>`;
+        label.style.textDecoration = "line-through";
+
+        task--;
+        taskcounter.textContent = task;
+
+      } else {
+
+        val.innerHTML = "";
+        label.style.textDecoration = "none";
+
+        task++;
+        taskcounter.textContent = task;
+      }
+
+    };
+
+  });
+}
 taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
     // baaki code
