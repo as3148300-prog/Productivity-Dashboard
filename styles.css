@@ -257,7 +257,7 @@ h1,h2,.brand-name,.timer-time,.weather-temp,.clock-time{ font-family:'Space Grot
   stroke: var(--gold);
   stroke-width:11;
   stroke-linecap:round;
-  stroke-dasharray:615.75;
+stroke-dasharray: 762.75;
   stroke-dashoffset:150;
   transition: stroke-dashoffset 1s linear;
   filter: drop-shadow(0 0 8px rgba(224,164,88,0.45));

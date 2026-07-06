@@ -333,6 +333,8 @@ timerbtn.addEventListener("click", function () {
         min.textContent = String(realmin).padStart(2, "0");
         sec.textContent = String(realsec).padStart(2, "0");
 
+        circle()
+
     }, 1000);
 
 });
@@ -359,7 +361,7 @@ min.textContent = String(realmin).padStart(2, "0");
  medmin.classList.remove("active")
  longmin.classList.remove("active")
  shortmin.classList.add("active")
- 
+
 
 })
 
@@ -375,3 +377,133 @@ longmin.classList.remove("active")
  medmin.classList.add("active")
 
 })
+
+ function circle(){
+    
+
+let min = document.querySelector(".min");
+let sec = document.querySelector(".sec");
+let timerbtn = document.querySelector("#timerToggle");
+
+let realsec = Number(sec.textContent);
+let realmin = Number(min.textContent);
+
+let interval;
+
+timerbtn.addEventListener("click", function () {
+
+    if (interval) return; // Dobara click par naya interval nahi banega
+
+    interval = setInterval(function () {
+
+        if (realmin === 0 && realsec === 0) {
+            clearInterval(interval);
+
+            document.querySelector("#warning1").innerHTML = "Completed!";
+            document.querySelector("#warning2").innerHTML = "Time's Up!....";
+            document.querySelector("#warning1").style.color = "green";
+            document.querySelector("#warning2").style.color = "green";
+            document.querySelector(".waring").style.transform = "translateY(0%)";
+
+            setTimeout(function () {
+                document.querySelector(".waring").style.transform = "translateY(-150%)";
+            }, 2000);
+
+            return;
+        }
+
+        if (realsec === 0) {
+            realmin--;
+            realsec = 59;
+        } else {
+            realsec--;
+        }
+
+        min.textContent = String(realmin).padStart(2, "0");
+        sec.textContent = String(realsec).padStart(2, "0");
+
+        circle()
+
+    }, 1000);
+
+});
+let  longmin = document.querySelector("#longmin")
+
+longmin.addEventListener("click",function(){
+    realsec = 0
+    realmin = 25
+    sec.textContent = String(realsec).padStart(2, "0");
+min.textContent = String(realmin).padStart(2, "0");
+ 
+ medmin.classList.remove("active")
+ longmin.classList.add("active")
+ shortmin.classList.remove("active")
+ startingsecs = realmin * 60 + realsec;
+circle();
+})
+
+let  shortmin = document.querySelector("#shortmin")
+
+shortmin.addEventListener("click",function(){
+    realsec = 0
+    realmin = 5
+    sec.textContent = String(realsec).padStart(2, "0");
+min.textContent = String(realmin).padStart(2, "0");
+ medmin.classList.remove("active")
+ longmin.classList.remove("active")
+ shortmin.classList.add("active")
+startingsecs = realmin * 60 + realsec;
+circle();
+
+
+})
+
+let  medmin = document.querySelector("#medmin")
+
+medmin.addEventListener("click",function(){
+    realsec = 0
+    realmin = 15
+    sec.textContent = String(realsec).padStart(2, "0");
+min.textContent = String(realmin).padStart(2, "0");
+longmin.classList.remove("active")
+ shortmin.classList.remove("active")
+ medmin.classList.add("active")
+ startingsecs = realmin * 60 + realsec;
+circle();
+
+})
+
+ function circle(){
+    
+ let ring = document.querySelector("#ringProgress");
+
+const circumference = 762.75;
+
+// Isko bahar banao
+let startingsecs = realmin * 60 + realsec;
+
+function circle() {
+
+    let currentSeconds = realmin * 60 + realsec;
+
+    let remainingPercentage = currentSeconds / startingsecs;
+
+    ring.style.strokeDashoffset =
+        circumference * (1 - remainingPercentage);
+}
+ }
+
+
+ }
+
+
+ function circle() {
+
+    let currentSeconds = realmin * 60 + realsec;
+
+    let remainingPercentage = currentSeconds / startingsecs;
+
+    ring.style.strokeDashoffset =
+        circumference * (1 - remainingPercentage);
+}
+ 
