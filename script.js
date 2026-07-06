@@ -343,6 +343,10 @@ longmin.addEventListener("click",function(){
     realmin = 25
     sec.textContent = String(realsec).padStart(2, "0");
 min.textContent = String(realmin).padStart(2, "0");
+ 
+ medmin.classList.remove("active")
+ longmin.classList.add("active")
+ shortmin.classList.remove("active")
 })
 
 let  shortmin = document.querySelector("#shortmin")
@@ -352,6 +356,11 @@ shortmin.addEventListener("click",function(){
     realmin = 5
     sec.textContent = String(realsec).padStart(2, "0");
 min.textContent = String(realmin).padStart(2, "0");
+ medmin.classList.remove("active")
+ longmin.classList.remove("active")
+ shortmin.classList.add("active")
+ 
+
 })
 
 let  medmin = document.querySelector("#medmin")
@@ -361,4 +370,8 @@ medmin.addEventListener("click",function(){
     realmin = 15
     sec.textContent = String(realsec).padStart(2, "0");
 min.textContent = String(realmin).padStart(2, "0");
+longmin.classList.remove("active")
+ shortmin.classList.remove("active")
+ medmin.classList.add("active")
+
 })
