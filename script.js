@@ -292,44 +292,73 @@ document.addEventListener("mouseenter", function () {
 });
 
 
+let min = document.querySelector(".min");
+let sec = document.querySelector(".sec");
+let timerbtn = document.querySelector("#timerToggle");
 
-let min = document.querySelector(".min")
-let sec = document.querySelector(".sec")
-let timerbtn = document.querySelector("#timerToggle")
+let realsec = Number(sec.textContent);
+let realmin = Number(min.textContent);
 
-let realsec = Number(sec.textContent)
-let realmin = Number(min.textContent)
+let interval;
 
-timerbtn.addEventListener("click",function(){
-     setInterval(function(){
-    if(realmin !== 0 && realsec>0){
-          realsec =  realsec-1
-       sec.textContent = realsec
-       }
-       if(realmin !== 0 && realsec ===0){
-        realmin = realmin -1
-        min.textContent = realmin 
-        realsec =59 
-       }if(realmin ===0 && realsec >0){
-        if(realsec>0){
-            realsec =  realsec-1
-       sec.textContent = realsec
-        }else{
-            realsec = 0
-             sec.textContent = realsec
+timerbtn.addEventListener("click", function () {
+
+    if (interval) return; // Dobara click par naya interval nahi banega
+
+    interval = setInterval(function () {
+
+        if (realmin === 0 && realsec === 0) {
+            clearInterval(interval);
+
+            document.querySelector("#warning1").innerHTML = "Completed!";
+            document.querySelector("#warning2").innerHTML = "Time's Up!....";
+            document.querySelector("#warning1").style.color = "green";
+            document.querySelector("#warning2").style.color = "green";
+            document.querySelector(".waring").style.transform = "translateY(0%)";
+
+            setTimeout(function () {
+                document.querySelector(".waring").style.transform = "translateY(-150%)";
+            }, 2000);
+
+            return;
         }
-       }
-       if(realmin === 0 && realsec === 0){
-         document.querySelector("#warning1").innerHTML = "Completed!"
-        document.querySelector("#warning2").innerHTML = " Time's Up!...."
-        document.querySelector("#warning1").style.color = "green"
-        document.querySelector("#warning2").style.color = "green"
-        document.querySelector(".waring").style.transform = "translateY(0%)"
-        setTimeout(function () {
-            document.querySelector(".waring").style.transform = "translateY(-150%)"
-        }, 2000)
-       }
-     },1000)
-})
- 
 
+        if (realsec === 0) {
+            realmin--;
+            realsec = 59;
+        } else {
+            realsec--;
+        }
+
+        min.textContent = String(realmin).padStart(2, "0");
+        sec.textContent = String(realsec).padStart(2, "0");
+
+    }, 1000);
+
+});
+let  longmin = document.querySelector("#longmin")
+
+longmin.addEventListener("click",function(){
+    realsec = 0
+    realmin = 25
+    sec.textContent = String(realsec).padStart(2, "0");
+min.textContent = String(realmin).padStart(2, "0");
+})
+
+let  shortmin = document.querySelector("#shortmin")
+
+shortmin.addEventListener("click",function(){
+    realsec = 0
+    realmin = 5
+    sec.textContent = String(realsec).padStart(2, "0");
+min.textContent = String(realmin).padStart(2, "0");
+})
+
+let  medmin = document.querySelector("#medmin")
+
+medmin.addEventListener("click",function(){
+    realsec = 0
+    realmin = 15
+    sec.textContent = String(realsec).padStart(2, "0");
+min.textContent = String(realmin).padStart(2, "0");
+})
