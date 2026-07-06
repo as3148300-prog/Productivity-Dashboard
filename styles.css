@@ -199,7 +199,7 @@ h1,h2,.brand-name,.timer-time,.weather-temp,.clock-time{ font-family:'Space Grot
 .quote-refresh{
   background:none;
   color: var(--muted);
-  font-size:16px;
+  font-size: 25px;
   width:32px; height:32px;
   border-radius:50%;
   transition: background-color .2s ease, color .2s ease, transform .3s ease;
