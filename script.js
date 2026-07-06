@@ -217,7 +217,11 @@ function addDeleteEvents() {
     taskcancel.forEach((elem) => {
         elem.onclick = function () {
             elem.parentElement.remove();
-            task--
+           if(task>0){
+              task--
+           }else{
+            task = 0
+           }
             taskcounter.textContent = task
  document.querySelector("#warning1").innerHTML = "Task Deleted"
         document.querySelector("#warning2").innerHTML = "ThankYou!"
@@ -246,7 +250,11 @@ function check() {
         val.innerHTML = `<i class="ri-check-line"></i>`;
         label.style.textDecoration = "line-through";
 
-        task--;
+        if(task>0){
+              task--
+           }else{
+            task = 0
+           }
         taskcounter.textContent = task;
 
       } else {
