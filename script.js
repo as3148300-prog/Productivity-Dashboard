@@ -290,3 +290,46 @@ document.addEventListener("mouseleave", function () {
 document.addEventListener("mouseenter", function () {
     cursor.style.opacity = "1";
 });
+
+
+
+let min = document.querySelector(".min")
+let sec = document.querySelector(".sec")
+let timerbtn = document.querySelector("#timerToggle")
+
+let realsec = Number(sec.textContent)
+let realmin = Number(min.textContent)
+
+timerbtn.addEventListener("click",function(){
+     setInterval(function(){
+    if(realmin !== 0 && realsec>0){
+          realsec =  realsec-1
+       sec.textContent = realsec
+       }
+       if(realmin !== 0 && realsec ===0){
+        realmin = realmin -1
+        min.textContent = realmin 
+        realsec =59 
+       }if(realmin ===0 && realsec >0){
+        if(realsec>0){
+            realsec =  realsec-1
+       sec.textContent = realsec
+        }else{
+            realsec = 0
+             sec.textContent = realsec
+        }
+       }
+       if(realmin === 0 && realsec === 0){
+         document.querySelector("#warning1").innerHTML = "Completed!"
+        document.querySelector("#warning2").innerHTML = " Time's Up!...."
+        document.querySelector("#warning1").style.color = "green"
+        document.querySelector("#warning2").style.color = "green"
+        document.querySelector(".waring").style.transform = "translateY(0%)"
+        setTimeout(function () {
+            document.querySelector(".waring").style.transform = "translateY(-150%)"
+        }, 2000)
+       }
+     },1000)
+})
+ 
+
