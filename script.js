@@ -274,3 +274,19 @@ taskForm.addEventListener("submit", (e) => {
     e.preventDefault();
     // baaki code
 });
+
+const cursor = document.querySelector(".cursor");
+
+window.addEventListener("mousemove", function (e) {
+    cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+});
+
+// Mouse window ke bahar jaye
+document.addEventListener("mouseleave", function () {
+    cursor.style.opacity = "0";
+});
+
+// Mouse window me wapas aaye
+document.addEventListener("mouseenter", function () {
+    cursor.style.opacity = "1";
+});
