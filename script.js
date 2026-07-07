@@ -294,6 +294,7 @@ function initTasks() {
       id: crypto.randomUUID(),
       label: value,
       done: false,
+      important: false,
     });
 
     persistTasks();
@@ -316,6 +317,19 @@ function initTasks() {
       return;
     }
 
+    if (event.target.closest(".task-important")) {
+      tasks = tasks.map((task) =>
+        task.id === taskId ? { ...task, important: !task.important } : task
+      );
+      persistTasks();
+      renderTasks();
+      const toggledTask = tasks.find((task) => task.id === taskId);
+      if (toggledTask?.important) {
+        showNotice("Marked Important!", "Task moved to the top.", "success");
+      }
+      return;
+    }
+
     if (event.target.closest(".task-check")) {
       tasks = tasks.map((task) =>
         task.id === taskId ? { ...task, done: !task.done } : task
@@ -331,12 +345,20 @@ function renderTasks() {
     elements.taskList.innerHTML =
       '<li class="task-empty">No tasks yet. Add one to get started.</li>';
   } else {
-    elements.taskList.innerHTML = tasks
+    const sortedTasks = [...tasks].sort((first, second) => {
+      if (first.important === second.important) return 0;
+      return first.important ? -1 : 1;
+    });
+
+    elements.taskList.innerHTML = sortedTasks
       .map(
         (task) => `
-          <li class="task-item ${task.done ? "done" : ""}" data-id="${task.id}">
+          <li class="task-item ${task.done ? "done" : ""} ${task.important ? "important" : ""}" data-id="${task.id}">
             <span class="task-check">${task.done ? '<i class="ri-check-line"></i>' : ""}</span>
             <span class="task-label">${escapeHtml(task.label)}</span>
+            <button type="button" class="task-important ${task.important ? "active" : ""}" title="Mark Important" aria-label="Mark task as important">
+              <i class="${task.important ? "ri-star-fill" : "ri-star-line"}"></i>
+            </button>
             <span class="task-del">✕</span>
           </li>
         `
