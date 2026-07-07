@@ -16,6 +16,14 @@
 />
 </head>
 <body>
+    <div class="sky-effects" aria-hidden="true">
+        <div class="sky-orb"></div>
+        <div class="cloud cloud-one"></div>
+        <div class="cloud cloud-two"></div>
+        <div class="cloud cloud-three"></div>
+        <div class="starfield starfield-one"></div>
+        <div class="starfield starfield-two"></div>
+    </div>
     <div class="cursor">
         <img src="cursor.png" alt="">
     </div>
@@ -192,7 +200,18 @@
           <div class="goal-total" id="goalTotalText">2 / 4 done</div>
         </div>
         <ul class="goal-list" id="goalList">
-          
+          <li class="goal-chip done">
+            <span class="task-check">✓</span>
+            <span class="glabel">Drink 8 glasses of water</span>
+          </li>
+          <li class="goal-chip done">
+            <span class="task-check">✓</span>
+            <span class="glabel">30 min workout</span>
+          </li>
+          <li class="goal-chip">
+            <span class="task-check"></span>
+            <span class="glabel">Read 10 pages</span>
+          </li>
           <li class="goal-chip">
             <span class="task-check"></span>
             <span class="glabel">No phone after 10pm</span>

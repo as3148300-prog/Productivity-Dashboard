@@ -30,6 +30,11 @@ body,
 :root{
   /* Light Theme */
   --bg:#FBF6EE;
+  --page-bg-image:url("./assets/day-bg.webp");
+  --page-bg-overlay:linear-gradient(180deg, rgba(251,246,238,0.68) 0%, rgba(251,246,238,0.92) 100%);
+  --cloud-opacity:0.95;
+  --star-opacity:0;
+  --orb-opacity:0.88;
   --surface:#FFFFFF;
   --border:#E9DFC9;
   --border-soft:#F0E8D6;
@@ -49,6 +54,11 @@ body,
 
 :root[data-theme="dark"]{
   --bg:#111111;
+  --page-bg-image:url("./assets/night-bg.webp");
+  --page-bg-overlay:linear-gradient(180deg, rgba(10,10,12,0.5) 0%, rgba(10,10,12,0.88) 100%);
+  --cloud-opacity:0.2;
+  --star-opacity:1;
+  --orb-opacity:0.55;
   --surface:#1A1A1A;
   --border:#2A2A2A;
   --border-soft:#333333;
@@ -78,10 +88,35 @@ body,
 body{
   font-family:'Inter', Arial, sans-serif;
   background-color: var(--bg);
-  background-image: radial-gradient(circle at 12% -5%, #fffaf0 0%, var(--bg) 45%);
   color: var(--ink);
   min-height:100vh;
-    cursor: none;
+  cursor: none;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background-image: var(--page-bg-overlay), var(--page-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.04);
+  animation: bgFloat 20s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255,255,255,0.32) 0%, transparent 32%),
+    radial-gradient(circle at 85% 18%, rgba(224,164,88,0.18) 0%, transparent 28%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 a{ text-decoration:none; color:inherit; }
@@ -93,7 +128,178 @@ h1,h2,.brand-name,.timer-time,.weather-temp,.clock-time{ font-family:'Space Grot
   font-size: 25px;
   font-weight: bold;
 }
-.app{ min-height:100vh; }
+.app{ min-height:100vh; position: relative; }
+
+.sky-effects{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.sky-orb{
+  position: absolute;
+  right: 7%;
+  top: 9%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: var(--orb-opacity);
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95) 0%, rgba(255,244,187,0.85) 18%, rgba(255,210,96,0.35) 48%, transparent 72%);
+  filter: blur(2px);
+  animation: orbPulse 8s ease-in-out infinite;
+}
+
+.cloud{
+  position: absolute;
+  width: 320px;
+  height: 110px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.72);
+  box-shadow:
+    60px -24px 0 12px rgba(255,255,255,0.74),
+    130px -12px 0 4px rgba(255,255,255,0.58),
+    190px 2px 0 8px rgba(255,255,255,0.64);
+  opacity: var(--cloud-opacity);
+  filter: blur(1px);
+}
+
+.cloud-one{
+  top: 12%;
+  left: -10%;
+  transform: scale(0.88);
+  animation: cloudDriftOne 24s linear infinite;
+}
+
+.cloud-two{
+  top: 27%;
+  right: -14%;
+  transform: scale(1.1);
+  animation: cloudDriftTwo 31s linear infinite;
+}
+
+.cloud-three{
+  top: 58%;
+  left: -18%;
+  transform: scale(0.72);
+  animation: cloudDriftThree 36s linear infinite;
+}
+
+.starfield{
+  position: absolute;
+  inset: 0;
+  opacity: var(--star-opacity);
+}
+
+.starfield::before,
+.starfield::after{
+  content:"";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+
+.starfield-one::before{
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(255,255,255,0.92) 0 1.2px, transparent 1.5px),
+    radial-gradient(circle at 25% 12%, rgba(201,228,255,0.9) 0 1.6px, transparent 2px),
+    radial-gradient(circle at 42% 20%, rgba(255,255,255,0.85) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 64% 14%, rgba(255,255,255,0.95) 0 1.3px, transparent 1.6px),
+    radial-gradient(circle at 78% 24%, rgba(183,219,255,0.9) 0 1.7px, transparent 2px),
+    radial-gradient(circle at 88% 10%, rgba(255,255,255,0.85) 0 1px, transparent 1.4px);
+  animation: twinkleA 4.8s ease-in-out infinite alternate;
+}
+
+.starfield-two::after{
+  background-image:
+    radial-gradient(circle at 8% 35%, rgba(255,255,255,0.7) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 21% 48%, rgba(255,255,255,0.82) 0 1.3px, transparent 1.7px),
+    radial-gradient(circle at 49% 38%, rgba(186,214,255,0.76) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 67% 46%, rgba(255,255,255,0.88) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 84% 36%, rgba(255,255,255,0.72) 0 1px, transparent 1.4px),
+    radial-gradient(circle at 92% 52%, rgba(186,214,255,0.76) 0 1.2px, transparent 1.6px);
+  animation: twinkleB 6s ease-in-out infinite;
+}
+
+@keyframes bgFloat{
+  0%{
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  100%{
+    transform: scale(1.08) translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes cloudDriftOne{
+  0%{
+    transform: translate3d(0, 0, 0) scale(0.88);
+  }
+  50%{
+    transform: translate3d(55vw, 24px, 0) scale(0.94);
+  }
+  100%{
+    transform: translate3d(122vw, 58px, 0) scale(0.88);
+  }
+}
+
+@keyframes cloudDriftTwo{
+  0%{
+    transform: translate3d(0, 0, 0) scale(1.1);
+  }
+  50%{
+    transform: translate3d(-48vw, 18px, 0) scale(1.04);
+  }
+  100%{
+    transform: translate3d(-118vw, 54px, 0) scale(1.1);
+  }
+}
+
+@keyframes cloudDriftThree{
+  0%{
+    transform: translate3d(0, 0, 0) scale(0.72);
+  }
+  50%{
+    transform: translate3d(62vw, 16px, 0) scale(0.78);
+  }
+  100%{
+    transform: translate3d(130vw, 42px, 0) scale(0.72);
+  }
+}
+
+@keyframes twinkleA{
+  0%{
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes twinkleB{
+  0%, 100%{
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50%{
+    opacity: 0.92;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes orbPulse{
+  0%, 100%{
+    transform: scale(1);
+    filter: blur(2px);
+  }
+  50%{
+    transform: scale(1.08);
+    filter: blur(0px);
+  }
+}
 
 /* ---------- Top navigation (replaces sidebar) ---------- */
 .topnav{
