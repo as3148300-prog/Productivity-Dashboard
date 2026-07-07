@@ -81,14 +81,13 @@ const DEFAULT_PLANNER = [
 ];
 
 const DEFAULT_GOALS = [
-  { id: crypto.randomUUID(), label: "Drink 8 glasses of water", done: true, doneAt: null },
-  { id: crypto.randomUUID(), label: "30 min workout", done: true, doneAt: null },
-  { id: crypto.randomUUID(), label: "Read 10 pages", done: false, doneAt: null },
-  { id: crypto.randomUUID(), label: "No phone after 10pm", done: false, doneAt: null },
+  { id: crypto.randomUUID(), label: "Drink 8 glasses of water", done: true },
+  { id: crypto.randomUUID(), label: "30 min workout", done: true },
+  { id: crypto.randomUUID(), label: "Read 10 pages", done: false },
+  { id: crypto.randomUUID(), label: "No phone after 10pm", done: false },
 ];
 
 const TIMER_RING_CIRCUMFERENCE = 2 * Math.PI * 98;
-const GOAL_AUTO_DELETE_MS = 10000;
 
 const elements = {
   root: document.documentElement,
@@ -137,7 +136,6 @@ const elements = {
 let tasks = readStorage(STORAGE_KEYS.tasks, []);
 let plannerItems = readStorage(STORAGE_KEYS.planner, DEFAULT_PLANNER);
 let goals = readStorage(STORAGE_KEYS.goals, DEFAULT_GOALS);
-const goalRemovalTimers = new Map();
 
 const timerState = {
   modes: [
@@ -461,7 +459,6 @@ function initGoals() {
       id: crypto.randomUUID(),
       label: value,
       done: false,
-      doneAt: null,
     });
 
     persistGoals();
@@ -475,16 +472,17 @@ function initGoals() {
     if (!chip) return;
 
     const goalId = chip.dataset.id;
-    goals = goals.map((goal) => {
-      if (goal.id !== goalId) return goal;
+    if (event.target.closest(".goal-del")) {
+      goals = goals.filter((goal) => goal.id !== goalId);
+      persistGoals();
+      renderGoals();
+      showNotice("Goal deleted", "Removed from daily goals.", "success");
+      return;
+    }
 
-      const nextDoneState = !goal.done;
-      return {
-        ...goal,
-        done: nextDoneState,
-        doneAt: nextDoneState ? Date.now() : null,
-      };
-    });
+    goals = goals.map((goal) =>
+      goal.id === goalId ? { ...goal, done: !goal.done } : goal
+    );
 
     persistGoals();
     renderGoals();
@@ -498,12 +496,11 @@ function renderGoals() {
         <li class="goal-chip ${goal.done ? "done" : ""}" data-id="${goal.id}">
           <span class="task-check">${goal.done ? '<i class="ri-check-line"></i>' : ""}</span>
           <span class="glabel">${escapeHtml(goal.label)}</span>
+          <button class="goal-del" title="Delete goal" aria-label="Delete goal">✕</button>
         </li>
       `
     )
     .join("");
-
-  syncGoalRemovalTimers();
 
   const total = goals.length || 1;
   const done = goals.filter((goal) => goal.done).length;
@@ -518,35 +515,6 @@ function renderGoals() {
 
 function persistGoals() {
   writeStorage(STORAGE_KEYS.goals, goals);
-}
-
-function syncGoalRemovalTimers() {
-  goalRemovalTimers.forEach((timerId, goalId) => {
-    if (!goals.some((goal) => goal.id === goalId && goal.done)) {
-      window.clearTimeout(timerId);
-      goalRemovalTimers.delete(goalId);
-    }
-  });
-
-  goals.forEach((goal) => {
-    if (!goal.done || !goal.doneAt || goalRemovalTimers.has(goal.id)) {
-      return;
-    }
-
-    const elapsed = Date.now() - goal.doneAt;
-    const remaining = Math.max(0, GOAL_AUTO_DELETE_MS - elapsed);
-
-    goalRemovalTimers.set(
-      goal.id,
-      window.setTimeout(() => {
-        goals = goals.filter((item) => item.id !== goal.id);
-        goalRemovalTimers.delete(goal.id);
-        persistGoals();
-        renderGoals();
-        showNotice("Goal removed", "Completed goal auto-cleared.", "success");
-      }, remaining)
-    );
-  });
 }
 
 function initCursor() {
